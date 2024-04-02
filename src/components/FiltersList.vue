@@ -14,13 +14,13 @@ const fetchFilters = async () => {
   }
 }
 
-const filteredMovies = ref([]);
+const filteredMovies = ref([])
 const applyFilter = async (filterId) => {
   try {
     const response = await axios.get(`http://localhost:8080/api/filters/${filterId}/movies`)
     console.log('Applying filter with ID:', filterId)
     console.log(`response data `, response.data)
-    filteredMovies.value = response.data;
+    filteredMovies.value = response.data
   } catch (error) {
     console.error(`There was an error applying filter ${filterId}:`, error)
   }
@@ -42,11 +42,14 @@ onMounted(fetchFilters)
   </div>
   <div>
     <h3>Filtered Movies</h3>
-    <ul>
-      <li v-for="movie in filteredMovies" :key="movie.id">
-        {{ movie.title }} - {{ movie.releaseDate }}
-      </li>
-    </ul>
+    <div v-if="filteredMovies.length">
+      <ul>
+        <li v-for="movie in filteredMovies" :key="movie.id">
+          {{ movie.title }} - {{ movie.releaseDate }}
+        </li>
+      </ul>
+    </div>
+    <p v-else>No movies found matching the selected filter criteria.</p>
   </div>
 </template>
 
@@ -56,6 +59,7 @@ li {
   align-items: center;
   justify-content: space-between;
 }
+
 button {
   margin-left: auto; /* Pushes the button to the right */
 }

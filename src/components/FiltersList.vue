@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const filters = ref([])
 
-onMounted(async () => {
+const fetchFilters = async () => {
   try {
     const response = await axios.get('http://localhost:8080/api/filters')
     filters.value = response.data
@@ -12,13 +12,19 @@ onMounted(async () => {
   } catch (error) {
     console.error('There was an error fetching the filters:', error)
   }
-})
-
-const applyFilter = (filterId) => {
-  // Placeholder for applying a filter
-  console.log('Applying filter with ID:', filterId)
-  // add another request to apply the filter and fetch results
 }
+
+const applyFilter = async (filterId) => {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/filters/${filterId}/movies`)
+    console.log('Applying filter with ID:', filterId)
+    console.log(`response data `, response.data)
+    // add another request to apply the filter and fetch results
+  } catch (error) {
+    console.error(`There was an error applying filter ${filterId}:`, error)
+  }
+}
+onMounted(fetchFilters)
 </script>
 
 <template>

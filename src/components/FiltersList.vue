@@ -1,31 +1,24 @@
-<script>
-import axios from 'axios'
 
-export default {
-  data() {
-    return {
-      filters: []
-    }
-  },
-  created() {
-    this.fetchFilters()
-  },
-  methods: {
-    fetchFilters() {
-      axios.get('/api/filters')
-        .then(response => {
-          this.filters = response.data
-        })
-        .catch(error => {
-          console.error('There was an error fetching the filters: ', error)
-        })
-    },
-    applyFilter(filterId) {
-      // Placeholder for applying a filter
-      console.log('Applying filter with ID: ', filterId)
-    }
+<script setup>
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+
+const filters = ref([]);
+
+onMounted(async () => {
+  try {
+    const response = await axios.get('/api/filters');
+    filters.value = response.data;
+  } catch (error) {
+    console.error("There was an error fetching the filters:", error);
   }
-}
+});
+
+const applyFilter = (filterId) => {
+  // Placeholder for applying a filter
+  console.log("Applying filter with ID:", filterId);
+  // add another request to apply the filter and fetch results
+};
 </script>
 
 <template>

@@ -51,75 +51,12 @@ onMounted(fetchFilters)
 </template>
 
 <style scoped>
-
-.container {
-  margin-top: 20px;
-}
-
-.mt-4 {
-  margin-top: 1.5rem;
-}
-
-.list-group {
+li {
   display: flex;
-  flex-direction: column;
-  padding-left: 0;
-  margin-bottom: 0;
+  align-items: center;
+  justify-content: space-between;
 }
-
-.list-group-item {
-  position: relative;
-  display: block;
-  padding: 0.75rem 1.25rem;
-  background-color: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+button {
+  margin-left: auto; /* Pushes the button to the right */
 }
-
-.button-container {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.btn {
-  display: inline-block;
-  font-weight: 400;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  user-select: none;
-  border: 1px solid transparent;
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  border-radius: 0.25rem;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
-}
-
-.btn-primary:hover {
-  color: #fff;
-  background-color: #0069d9;
-  border-color: #0062cc;
-}
-
-.btn-primary:focus {
-  color: #fff;
-  background-color: #0069d9;
-  border-color: #0062cc;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
-}
-
-.btn-primary:active {
-  color: #fff;
-  background-color: #0062cc;
-  border-color: #005cbf;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
-}
-
-
 </style>

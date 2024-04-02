@@ -1,26 +1,43 @@
 # filters-ui
+## Prerequisites
 
-This template should help get you started developing with Vue 3 in Vite.
+Before you begin, ensure you have the following installed:
+- Node.js (https://nodejs.org/)
+- npm (comes installed with Node.js)
 
-## Recommended IDE Setup
+## Installation
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+To set up this project locally, follow these steps:
 
-## Customize configuration
+### Clone the Repository
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+First, clone the project repository to your local machine:
 
-## Project Setup
+https://github.com/5OO/filters-UI.git
+
+cd filters-ui
+
+
+### Install Dependencies
+
+Navigate to the project directory if you haven't already, and install the required dependencies using npm:
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+This command reads the `package.json` file and installs the dependencies listed there, including Bootstrap and Axios for this project.
+
+### Serve the Application
+
+Once the installation is complete, you can Compile and Hot-Reload for Development the application locally using:
 
 ```sh
 npm run dev
 ```
+
+This command starts a local development server. Open your web browser and navigate to `http://localhost:5173/` to view the application.
+
 
 ### Compile and Minify for Production
 

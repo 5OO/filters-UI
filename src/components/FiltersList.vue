@@ -3,6 +3,8 @@ import { onMounted, ref } from 'vue'
 import axios from 'axios'
 
 const filters = ref([])
+const filteredMovies = ref([])
+const filterApplied = ref(false)
 
 const fetchFilters = async () => {
   try {
@@ -14,8 +16,8 @@ const fetchFilters = async () => {
   }
 }
 
-const filteredMovies = ref([])
 const applyFilter = async (filterId) => {
+  filterApplied.value = true
   try {
     const response = await axios.get(`http://localhost:8080/api/filters/${filterId}/movies`)
     console.log('Applying filter with ID:', filterId)
@@ -42,14 +44,14 @@ onMounted(fetchFilters)
   </div>
   <div>
     <h3>Filtered Movies</h3>
-    <div v-if="filteredMovies.length">
+    <div v-if="filterApplied && filteredMovies.length">
       <ul>
         <li v-for="movie in filteredMovies" :key="movie.id">
           {{ movie.title }} - {{ movie.releaseDate }}
         </li>
       </ul>
     </div>
-    <p v-else>No movies found matching the selected filter criteria.</p>
+    <p v-if="filterApplied && !filteredMovies.length">No movies found matching the selected filter criteria.</p>
   </div>
 </template>
 

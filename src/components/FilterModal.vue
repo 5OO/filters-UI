@@ -28,7 +28,7 @@ const saveFilter = async () => {
 </script>
 
   <template>
-    <PvButton label="Create New Filter" @click="showDialog = true" />
+    <PvButton label="Create New Filter" @click="showDialog = true" class="create-filter-button" />
     <PvDialog v-model:visible="showDialog" :modal="true" :closable="false">
       <template #header>
         <h3>Create New Filter</h3>
@@ -48,4 +48,8 @@ const saveFilter = async () => {
   </template>
 
 <style scoped>
+.create-filter-button {
+  display: block;
+  margin-left: auto;
+}
 </style>

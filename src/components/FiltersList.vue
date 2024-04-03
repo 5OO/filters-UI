@@ -34,7 +34,7 @@ onMounted(fetchFilters)
 <template>
   <div class="container">
     <h2 class="mt-4">Available Filters</h2>
-    <ul class="list-group">
+    <ul class="list-group filter-list">
       <li class="list-group-item" v-for="filter in filters" :key="filter.id">
         {{ filter.name }}
         <div class="button-container">
@@ -46,7 +46,7 @@ onMounted(fetchFilters)
   <div>
     <div v-if="filterApplied && filteredMovies.length">
       <h3>Filtered Movies</h3>
-      <ul>
+      <ul class="movie-list">
         <li v-for="movie in filteredMovies" :key="movie.id">
           {{ movie.title }} - {{ movie.releaseDate }}
         </li>
@@ -57,15 +57,26 @@ onMounted(fetchFilters)
 </template>
 
 <style scoped>
-li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.filter-list li:nth-child(odd), .movie-list li:nth-child(odd) {
+  background-color: #f9f9f9;
 }
 
-button {
-  margin-left: auto; /* Pushes the button to the right */
-  margin-top: 2px;
-  margin-bottom: 2px;
+.filter-list li:nth-child(even), .movie-list li:nth-child(even) {
+  background-color: #fff;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.container {
+  margin-bottom: 20px;
+}
+
+.movie-list li, .filter-list li {
+  padding: 10px;
+  border: 1px solid #ddd;
+  list-style-type: none;
 }
 </style>

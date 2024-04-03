@@ -15,7 +15,7 @@ const app = createApp(App);
 
 app.use(PrimeVue);
 
-app.component('Dialog-component', Dialog);
-app.component('Button-component', Button);
-app.component('InputText', InputText);
+app.component('PvDialog', Dialog);
+app.component('PvButton', Button);
+app.component('PvInputText', InputText);
 app.mount('#app');

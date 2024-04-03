@@ -2,9 +2,9 @@
 
 import { ref } from 'vue';
 import axios from 'axios';
-import Dialog from 'primevue/dialog';
-import Button from 'primevue/button';
-import InputText from 'primevue/inputtext';
+import PvDialog from 'primevue/dialog';
+import PvButton from 'primevue/button';
+import PvInputText from 'primevue/inputtext';
 
 const showDialog = ref(false);
 const filterName = ref('');
@@ -27,30 +27,25 @@ const saveFilter = async () => {
 }
 </script>
 
-<template>
   <template>
-    <Button label="Create New Filter" @click="showDialog = true" />
-    <Dialog v-model:visible="showDialog" :modal="true" :closable="false">
+    <PvButton label="Create New Filter" @click="showDialog = true" />
+    <PvDialog v-model:visible="showDialog" :modal="true" :closable="false">
       <template #header>
         <h3>Create New Filter</h3>
       </template>
-      <template #content>
         <div class="p-fluid">
           <div class="p-field">
             <label for="filterName">Filter Name</label>
-            <InputText id="filterName" v-model="filterName" placeholder="Enter filter name"/>
+            <PvInputText id="filterName" v-model="filterName" placeholder="Enter 2  filter name"/>
           </div>
-          <!-- Add more fields as needed -->
+          <!-- Add more fields   -->
         </div>
-      </template>
       <template #footer>
-        <Button label="Save" @click="saveFilter" />
-        <Button label="Cancel" @click="showDialog = false" />
+        <PvButton label="Save" @click="saveFilter" />
+        <PvButton label="Cancel" @click="showDialog = false" />
       </template>
-    </Dialog>
+    </PvDialog>
   </template>
-
-</template>
 
 <style scoped>
 </style>

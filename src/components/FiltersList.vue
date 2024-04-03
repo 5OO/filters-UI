@@ -43,8 +43,8 @@ onMounted(fetchFilters)
     </ul>
   </div>
   <div>
-    <h3>Filtered Movies</h3>
     <div v-if="filterApplied && filteredMovies.length">
+      <h3>Filtered Movies</h3>
       <ul>
         <li v-for="movie in filteredMovies" :key="movie.id">
           {{ movie.title }} - {{ movie.releaseDate }}

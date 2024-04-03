@@ -1,6 +1,6 @@
 <script setup>
+import FilterModal from '@/components/FilterModal.vue'
 import FiltersList from './components/FiltersList.vue'
-import FilterModal from './components/FilterModal.vue'
 </script>
 
 <template>
@@ -8,5 +8,4 @@ import FilterModal from './components/FilterModal.vue'
     <FilterModal/>
     <FiltersList/>
   </div>
-
 </template>

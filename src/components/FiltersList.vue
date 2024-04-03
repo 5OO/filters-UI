@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import axios from 'axios'
+import Button from 'primevue/button';
 
 const filters = ref([])
 const filteredMovies = ref([])
@@ -37,7 +38,7 @@ onMounted(fetchFilters)
       <li class="list-group-item" v-for="filter in filters" :key="filter.id">
         {{ filter.name }}
         <div class="button-container">
-          <button class="btn btn-primary" @click="applyFilter(filter.id)">Apply</button>
+          <Button class="btn btn-primary" @click="applyFilter(filter.id)">Apply</Button>
         </div>
       </li>
     </ul>
@@ -64,5 +65,7 @@ li {
 
 button {
   margin-left: auto; /* Pushes the button to the right */
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
 </style>

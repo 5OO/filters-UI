@@ -17,6 +17,8 @@ const fetchFilters = async () => {
   }
 }
 
+onMounted(fetchFilters)
+
 const applyFilter = async (filterId) => {
   filterApplied.value = true
   try {
@@ -28,7 +30,6 @@ const applyFilter = async (filterId) => {
     console.error(`There was an error applying filter ${filterId}:`, error)
   }
 }
-onMounted(fetchFilters)
 </script>
 
 <template>

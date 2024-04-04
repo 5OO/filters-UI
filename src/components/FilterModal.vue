@@ -22,12 +22,13 @@ const removeCriteria = (index) => {
 const saveFilter = async () => {
   try {
     const response = await axios.post('http://localhost:8080/api/filters', {
-      name: filterName.value
-      // Include other fields as necessary
+      name: filterName.value,
+      criteria: criteria.value
     })
     console.log('Filter saved:', response.data)
     // Reset form and hide dialog
     filterName.value = ''
+    criteria.value = [{fieldName:'',comparisonOperator:'', criteriaValue:''}]
     showDialog.value = false
     // Optionally refresh the list of filters here
   } catch (error) {

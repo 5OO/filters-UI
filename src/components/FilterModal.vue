@@ -5,6 +5,7 @@ import axios from 'axios';
 import PvDialog from 'primevue/dialog';
 import PvButton from 'primevue/button';
 import PvInputText from 'primevue/inputtext';
+import { eventBus } from '/src/eventBus.js';
 
 const showDialog = ref(false);
 const filterName = ref('');
@@ -26,11 +27,10 @@ const saveFilter = async () => {
       criteria: criteria.value
     })
     console.log('Filter saved:', response.data)
-    // Reset form and hide dialog
     filterName.value = ''
     criteria.value = [{fieldName:'',comparisonOperator:'', criteriaValue:''}]
     showDialog.value = false
-    // Optionally refresh the list of filters here
+    eventBus.emit('filter-saved', { message: '... refreshing list ...' });
   } catch (error) {
     console.error('Error saving filter:', error)
   }

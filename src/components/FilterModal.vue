@@ -5,7 +5,8 @@ import axios from 'axios';
 import PvDialog from 'primevue/dialog';
 import PvButton from 'primevue/button';
 import PvInputText from 'primevue/inputtext';
-import { eventBus } from '/src/eventBus.js';
+import { eventBus } from './src/eventBus.js';
+import PvDropdown from 'primevue/dropdown';
 
 const showDialog = ref(false);
 const filterName = ref('');
@@ -19,6 +20,14 @@ const addCriteria = () => {
 const removeCriteria = (index) => {
   criteria.value.splice(index, 1);
 }
+
+const fieldOptions = ref([ // Define your field options
+  { label: 'Title', value: 'title' },
+  { label: 'Original Title', value: 'originalTitle' },
+  { label: 'Release Date', value: 'releaseDate' },
+  { label: 'Vote Average', value: 'voteAverage' },
+  { label: 'Popularity', value: 'popularity' }
+]);
 
 const saveFilter = async () => {
   try {
@@ -51,7 +60,7 @@ const saveFilter = async () => {
           </div>
           <!-- Criteria Rows -->
           <div v-for="(criterion, index) in criteria" :key="index" class="p-field criteria-row">
-            <PvInputText v-model="criterion.fieldName" placeholder="Field Name"/>
+            <PvDropdown v-model="criterion.fieldName" :options="fieldOptions" placeholder="Select Field Name" optionLabel="label" optionValue="value" />
             <PvInputText v-model="criterion.comparisonOperator" placeholder="Comparison Operator"/>
             <PvInputText v-model="criterion.criteriaValue" placeholder="Criteria Value"/>
             <PvButton label="remove row" @click="removeCriteria(index)" />

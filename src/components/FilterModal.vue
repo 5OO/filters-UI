@@ -5,7 +5,7 @@ import axios from 'axios';
 import PvDialog from 'primevue/dialog';
 import PvButton from 'primevue/button';
 import PvInputText from 'primevue/inputtext';
-import { eventBus } from './src/eventBus.js';
+import { eventBus } from '@/eventBus.js';
 import PvDropdown from 'primevue/dropdown';
 
 const showDialog = ref(false);

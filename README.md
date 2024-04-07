@@ -1,4 +1,4 @@
-# filters-ui
+# filters-app UI
 ## Prerequisites
 
 Before you begin, ensure you have the following installed:
@@ -43,10 +43,4 @@ This command starts a local development server. Open your web browser and naviga
 
 ```sh
 npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```

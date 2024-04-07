@@ -13,13 +13,13 @@ import PvInputNumber from 'primevue/inputnumber'
 const showDialog = ref(false)
 const filterName = ref('')
 const criteria = ref([
-  { fieldName: '', comparisonOperator: '', criteriaValue: '', comparisonOptions: [], fieldType: '' }
+  { fieldName: '', comparisonOperator: '', criteriaValue: null, comparisonOptions: [], fieldType: '' }
 ])
 const addCriteria = () => {
   criteria.value.push({
     fieldName: '',
     comparisonOperator: '',
-    criteriaValue: '',
+    criteriaValue: null,
     comparisonOptions: [],
     fieldType: ''
   })
@@ -103,7 +103,7 @@ const saveFilter = async () => {
     criteria.value = [{
       fieldName: '',
       comparisonOperator: '',
-      criteriaValue: '',
+      criteriaValue: null,
       comparisonOptions: [],
       fieldType: ''
     }]
@@ -143,7 +143,7 @@ criteria.value.forEach((criterion) => {
         <PvCalendar v-if="criterion.fieldType === 'date'" v-model="criterion.criteriaValue"
                     placeholder="Select a date" />
         <PvInputNumber v-else-if="criterion.fieldType === 'numeric'" v-model="criterion.criteriaValue"
-                       placeholder="Enter a number" />
+                       placeholder="Enter a number" inputId="locale-user" :minFractionDigits="2" showButtons buttonLayout="horizontal" :step="1" />
         <PvInputText v-else v-model="criterion.criteriaValue" placeholder="Enter text" />
 
         <PvButton label="remove row" @click="removeCriteria(index)" />

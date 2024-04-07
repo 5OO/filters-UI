@@ -7,11 +7,13 @@ import PvButton from 'primevue/button';
 import PvInputText from 'primevue/inputtext';
 import { eventBus } from '@/eventBus.js';
 import PvDropdown from 'primevue/dropdown';
+import PvCalendar from 'primevue/calendar';
+import  PvInputNumber from 'primevue/inputnumber';
 
 const showDialog = ref(false);
 const filterName = ref('');
 const criteria = ref([
-  {fieldName:'',comparisonOperator:'', criteriaValue:'', comparisonOptions: []}
+  {fieldName:'',comparisonOperator:'', criteriaValue:'', comparisonOptions: [], fieldType:''}
 ]);
 const addCriteria = () => {
   criteria.value.push({fieldName:'',comparisonOperator:'', criteriaValue:'', comparisonOptions: []});
@@ -67,6 +69,7 @@ const updateComparisonOptions = (criterion) => {
     default:
       type = 'string'; // Default case
   }
+  criterion.fieldType = type;
   criterion.comparisonOptions = comparisonOptionsByType.value[type];
 };
 
@@ -109,7 +112,11 @@ criteria.value.forEach((criterion) => {
           <div v-for="(criterion, index) in criteria" :key="index" class="p-field criteria-row">
             <PvDropdown v-model="criterion.fieldName" :options="fieldOptions" placeholder="Select Field Name" optionLabel="label" optionValue="value" />
             <PvDropdown v-model="criterion.comparisonOperator" :options="criterion.comparisonOptions" placeholder="Select Comparison Operator" optionLabel="label" optionValue="value"/>
-            <PvInputText v-model="criterion.criteriaValue" placeholder="Criteria Value"/>
+
+            <PvCalendar v-if="criterion.fieldType === 'date'" v-model="criterion.criteriaValue" placeholder="Select a date" />
+            <PvInputNumber v-else-if="criterion.fieldType === 'numeric'" v-model="criterion.criteriaValue" placeholder="Enter a number" />
+            <PvInputText v-else v-model="criterion.criteriaValue" placeholder="Enter text" />
+
             <PvButton label="remove row" @click="removeCriteria(index)" />
           </div>
           <PvButton label="Add Criteria" @click="addCriteria" />

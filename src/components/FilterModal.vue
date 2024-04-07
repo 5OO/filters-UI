@@ -1,6 +1,6 @@
 <script setup>
 
-import { ref } from 'vue';
+import { ref, watch } from 'vue'
 import axios from 'axios';
 import PvDialog from 'primevue/dialog';
 import PvButton from 'primevue/button';
@@ -11,10 +11,10 @@ import PvDropdown from 'primevue/dropdown';
 const showDialog = ref(false);
 const filterName = ref('');
 const criteria = ref([
-  {fieldName:'',comparisonOperator:'', criteriaValue:''}
+  {fieldName:'',comparisonOperator:'', criteriaValue:'', comparisonOptions: []}
 ]);
 const addCriteria = () => {
-  criteria.value.push({fieldName:'',comparisonOperator:'', criteriaValue:''});
+  criteria.value.push({fieldName:'',comparisonOperator:'', criteriaValue:'', comparisonOptions: []});
 }
 
 const removeCriteria = (index) => {
@@ -29,6 +29,47 @@ const fieldOptions = ref([ // Define your field options
   { label: 'Popularity', value: 'popularity' }
 ]);
 
+const comparisonOptionsByType = ref({
+  string: [
+    { label: 'Contains', value: 'contains' },
+    { label: 'Starts With', value: 'startsWith' },
+    { label: 'Ends With', value: 'endsWith' },
+    { label: 'Equals', value: 'equals' },
+  ],
+  numeric: [
+    { label: 'Greater Than', value: '>' },
+    { label: 'Less Than', value: '<' },
+    { label: 'Equals', value: '=' },
+  ],
+  date: [
+    { label: 'After', value: 'after' },
+    { label: 'Before', value: 'before' },
+    { label: 'On', value: 'equals' },
+    { label: 'After or On', value: '>=' },
+    { label: 'Before or On', value: '<=' },
+  ],
+});
+
+const updateComparisonOptions = (criterion) => {
+  let type;
+  switch (criterion.fieldName) {
+    case 'voteAverage':
+    case 'popularity':
+      type = 'numeric';
+      break;
+    case 'originalTitle':
+    case 'title':
+      type = 'string';
+      break;
+    case 'releaseDate':
+      type = 'date';
+      break;
+    default:
+      type = 'string'; // Default case
+  }
+  criterion.comparisonOptions = comparisonOptionsByType.value[type];
+};
+
 const saveFilter = async () => {
   try {
     const response = await axios.post('http://localhost:8080/api/filters', {
@@ -37,14 +78,20 @@ const saveFilter = async () => {
     })
     console.log('Filter saved:', response.data)
     filterName.value = ''
-    criteria.value = [{fieldName:'',comparisonOperator:'', criteriaValue:''}]
+    criteria.value = [{fieldName:'',comparisonOperator:'', criteriaValue:'',  comparisonOptions: []}]
     showDialog.value = false
     eventBus.emit('filter-saved', { message: '... refreshing list ...' });
   } catch (error) {
     console.error('Error saving filter:', error)
   }
-
 }
+
+criteria.value.forEach((criterion) => {
+  watch(() => criterion.fieldName, () => {
+    updateComparisonOptions(criterion);
+  }, { immediate: true });
+});
+
 </script>
 
   <template>
@@ -61,7 +108,7 @@ const saveFilter = async () => {
           <!-- Criteria Rows -->
           <div v-for="(criterion, index) in criteria" :key="index" class="p-field criteria-row">
             <PvDropdown v-model="criterion.fieldName" :options="fieldOptions" placeholder="Select Field Name" optionLabel="label" optionValue="value" />
-            <PvInputText v-model="criterion.comparisonOperator" placeholder="Comparison Operator"/>
+            <PvDropdown v-model="criterion.comparisonOperator" :options="criterion.comparisonOptions" placeholder="Select Comparison Operator" optionLabel="label" optionValue="value"/>
             <PvInputText v-model="criterion.criteriaValue" placeholder="Criteria Value"/>
             <PvButton label="remove row" @click="removeCriteria(index)" />
           </div>

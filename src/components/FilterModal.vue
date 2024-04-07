@@ -16,7 +16,13 @@ const criteria = ref([
   { fieldName: '', comparisonOperator: '', criteriaValue: '', comparisonOptions: [], fieldType: '' }
 ])
 const addCriteria = () => {
-  criteria.value.push({ fieldName: '', comparisonOperator: '', criteriaValue: '', comparisonOptions: [] })
+  criteria.value.push({
+    fieldName: '',
+    comparisonOperator: '',
+    criteriaValue: '',
+    comparisonOptions: [],
+    fieldType: ''
+  })
 }
 
 const removeCriteria = (index) => {

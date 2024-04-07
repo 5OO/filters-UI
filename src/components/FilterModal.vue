@@ -79,6 +79,11 @@ const updateComparisonOptions = (criterion) => {
   criterion.comparisonOptions = comparisonOptionsByType.value[type]
 }
 
+const handleFieldNameChange = (criterion, newValue) => {
+  console.log(`New field name selected: ${newValue}`);
+  updateComparisonOptions(criterion);
+};
+
 const saveFilter = async () => {
   try {
     const formattedCriteria = criteria.value.map(criterion => {
@@ -131,7 +136,7 @@ criteria.value.forEach((criterion) => {
       <!-- Criteria Rows -->
       <div v-for="(criterion, index) in criteria" :key="index" class="p-field criteria-row">
         <PvDropdown v-model="criterion.fieldName" :options="fieldOptions" placeholder="Select Field Name"
-                    optionLabel="label" optionValue="value" />
+                    optionLabel="label" optionValue="value" @change="handleFieldNameChange(criterion, $event)" />
         <PvDropdown v-model="criterion.comparisonOperator" :options="criterion.comparisonOptions"
                     placeholder="Select Comparison Operator" optionLabel="label" optionValue="value" />
 

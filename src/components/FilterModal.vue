@@ -29,7 +29,7 @@ const removeCriteria = (index) => {
   criteria.value.splice(index, 1)
 }
 
-const fieldOptions = ref([ // Define your field options
+const fieldOptions = ref([
   { label: 'Title', value: 'title' },
   { label: 'Original Title', value: 'originalTitle' },
   { label: 'Release Date', value: 'releaseDate' },
@@ -73,7 +73,7 @@ const updateComparisonOptions = (criterion) => {
       type = 'date'
       break
     default:
-      type = 'string' // Default case
+      type = 'string'
   }
   criterion.fieldType = type
   criterion.comparisonOptions = comparisonOptionsByType.value[type]
